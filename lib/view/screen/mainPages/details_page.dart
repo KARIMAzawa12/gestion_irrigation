@@ -168,14 +168,7 @@ class _DetailPageState extends State<DetailPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            r'$' + _plantList[widget.plantId].price.toString(),
-                            style: TextStyle(
-                              color: Constants.blackColor,
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+
                         ],
                       ),
                       Row(
@@ -231,7 +224,7 @@ class _DetailPageState extends State<DetailPage> {
                   _plantList[widget.plantId].isSelected = isSelected;
                 });
               }, icon: Icon(
-                Icons.shopping_cart,
+                Icons.add,
                 color: _plantList[widget.plantId].isSelected == true ? Colors.white : Constants.primaryColor,
               )),
               decoration: BoxDecoration(
@@ -262,7 +255,7 @@ class _DetailPageState extends State<DetailPage> {
                     ]),
                 child: const Center(
                   child: Text(
-                    'BUY NOW',
+                    'Ajouter au jardin',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,

@@ -1,6 +1,6 @@
 class Plant {
   final int plantId;
-  final int price;
+  //final int price;
   final String size;
   final double rating;
   final int humidity;
@@ -14,7 +14,7 @@ class Plant {
 
   Plant(
       {required this.plantId,
-        required this.price,
+       // required this.price,
         required this.category,
         required this.plantName,
         required this.size,
@@ -30,7 +30,7 @@ class Plant {
   static List<Plant> plantList = [
     Plant(
         plantId: 0,
-        price: 22,
+        //price: 22,
         category: 'Indoor',
         plantName: 'Sanseviera',
         size: 'Small',
@@ -45,7 +45,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 1,
-        price: 11,
+        //price: 11,
         category: 'Outdoor',
         plantName: 'Philodendron',
         size: 'Medium',
@@ -60,7 +60,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 2,
-        price: 18,
+        //price: 18,
         category: 'Indoor',
         plantName: 'Beach Daisy',
         size: 'Large',
@@ -75,7 +75,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 3,
-        price: 30,
+        //price: 30,
         category: 'Outdoor',
         plantName: 'Big Bluestem',
         size: 'Small',
@@ -90,7 +90,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 4,
-        price: 24,
+       // price: 24,
         category: 'Recommended',
         plantName: 'Big Bluestem',
         size: 'Large',
@@ -105,7 +105,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 5,
-        price: 24,
+       // price: 24,
         category: 'Outdoor',
         plantName: 'Meadow Sage',
         size: 'Medium',
@@ -120,7 +120,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 6,
-        price: 19,
+       // price: 19,
         category: 'Garden',
         plantName: 'Plumbago',
         size: 'Small',
@@ -135,7 +135,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 7,
-        price: 23,
+       // price: 23,
         category: 'Garden',
         plantName: 'Tritonia',
         size: 'Medium',
@@ -150,7 +150,7 @@ class Plant {
         isSelected: false),
     Plant(
         plantId: 8,
-        price: 46,
+       // price: 46,
         category: 'Recommended',
         plantName: 'Tritonia',
         size: 'Medium',

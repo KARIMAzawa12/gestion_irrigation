@@ -60,7 +60,7 @@ class MyTranslation extends Translations{
           "8" : 'Rejoignez la Communauté Agricole',
           "9" : 'Continue',
           "10" : 'Connexion',
-          "11" : 'Bienvenue',
+          "11" : 'GHAITH',
           "12" : 'Connectez-vous avec votre adresse e-mail ou continuez avec les réseaux sociaux',
           "13" : 'Entrez votre adresse e-mail',
           "14" : 'Email',

@@ -1,101 +1,70 @@
 import 'package:flutter/material.dart';
-import '../../widget/ProfileWidget.dart';
-import 'Constants.dart';
+import 'package:lepfe/view/screen/mainPages/user.dart';
+ import 'MessagePage.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfilePagee extends StatelessWidget {
+  final Userr user; // Assuming User is a class representing user information
+
+  ProfilePagee({required this.user});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            height: size.height,
-            width: size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Constants.primaryColor.withOpacity(.5),
-                      width: 5.0,
-                    ),
-                  ),
-                  child: const CircleAvatar(
-                    radius: 60,
-                    backgroundImage: ExactAssetImage('assets/images/profile.jpg'),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: size.width * .3,
-                  child: Row(
-                    children: [
-                      Text(
-                        'John Doe',
-                        style: TextStyle(
-                          color: Constants.blackColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(
-                          height: 24,
-                          child: Image.asset("assets/images/verified.png")),
-                    ],
-                  ),
-                ),
-                Text(
-                  'johndoe@gmail.com',
-                  style: TextStyle(
-                    color: Constants.blackColor.withOpacity(.3),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: size.height * .7,
-                  width: size.width,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ProfileWidget(
-                        icon: Icons.person,
-                        title: 'My Profile',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.settings,
-                        title: 'Settings',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.notifications,
-                        title: 'Notifications',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.chat,
-                        title: 'FAQs',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.share,
-                        title: 'Share',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.logout,
-                        title: 'Log Out',
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 24),
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage(user.imagePath),
             ),
-          ),
-        ));
+            SizedBox(height: 16),
+            Text(
+              user.name,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            SizedBox(height: 8),
+            Text(
+              user.email,
+              style: TextStyle(color: Colors.grey),
+            ),
+            SizedBox(height: 24),
+            Divider(thickness: 1, height: 20),
+            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                user.about,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to message page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MessagePage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: Colors.blue[200],
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+              child: Text('Contacter'),
+            ),
+            SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
   }
 }

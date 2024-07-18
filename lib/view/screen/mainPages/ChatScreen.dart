@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Import DateFormat for date formatting
+import 'dart:math';
 
 class GenerativeModel {
   final String model;
@@ -8,10 +9,42 @@ class GenerativeModel {
   GenerativeModel({required this.model, required this.apiKey});
 
   Future<Content> generateContent(List<Content> content) async {
-    // Implementation of generateContent method
-    return Content(); // Placeholder return value
+    // Récupérer le message de l'utilisateur
+    String userMessage = content.first.text;
+
+    // Implémenter la logique de génération de contenu ici en fonction de userMessage
+    String generatedResponse = await generateResponseUsingNLP(userMessage);
+
+    // Retourner le contenu généré
+    return Content(text: generatedResponse);
   }
 }
+
+Future<String> generateResponseUsingNLP(String userMessage) async {
+  // Convertir le message de l'utilisateur en minuscules pour une comparaison insensible à la casse
+  String lowercaseMessage = userMessage.toLowerCase();
+
+  // Définir des mots-clés et leurs réponses associées
+  Map<String, String> keywordResponses = {
+    'bonjour': 'Bonjour ! Comment puis-je vous aider aujourd\'hui ?',
+    'comment ça va': 'Je suis un programme informatique, donc je vais bien ! Et vous ?',
+    'météo': 'La météo est ensoleillée aujourd\'hui.',
+    'au revoir': 'Au revoir ! À la prochaine !',
+    // Ajoutez d'autres mots-clés et leurs réponses associées selon vos besoins
+  };
+
+  // Rechercher des mots-clés dans le message de l'utilisateur et retourner une réponse appropriée
+  for (var keyword in keywordResponses.keys) {
+    if (lowercaseMessage.contains(keyword)) {
+      // Retourner une réponse associée au mot-clé trouvé
+      return keywordResponses[keyword]!;
+    }
+  }
+
+  // Si aucun mot-clé n'est trouvé, retourner une réponse par défaut
+  return "Désolé, je n'ai pas compris. Pouvez-vous reformuler ?";
+}
+
 
 class Content {
   final String text;
@@ -30,7 +63,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _userInput = TextEditingController();
-  static const apiKey = "AIzaSyCbHjIls01KcgF4gMObTBoovzDbrVA5yN8"; // Replace with your Gemini API key
+  static const apiKey = "AIzaSyDhnDKT5idycobku3e1ythzKh1EGM1Xsog"; // Replace with your Gemini API key
   final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
   final List<Message> _messages = [];
 
@@ -54,14 +87,17 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF7ECC7D),
       body: Container(
-        decoration: BoxDecoration(
+    /* decoration: BoxDecoration(
+
           image: DecorationImage(
             colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.8), BlendMode.dstATop),
             image: const NetworkImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigDbiBM6I5Fx1Jbz-hj_mqL_KtAPlv9UsQwpthZIfFLjL-hvCmst09I-RbQsbVt5Z0QzYI_Xj1l8vkS8JrP6eUlgK89GJzbb_P-BwLhVP13PalBm8ga1hbW5pVx8bswNWCjqZj2XxTFvwQ__u4ytDKvfFi5I2W9MDtH3wFXxww19EVYkN8IzIDJLh_aw/s1920/space-soldier-ai-wallpaper-4k.webp'),
             fit: BoxFit.cover,
-          ),
-        ),
+          )
+          ,
+        ),*/
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -85,7 +121,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     flex: 15,
                     child: TextFormField(
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.black),
                       controller: _userInput,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(

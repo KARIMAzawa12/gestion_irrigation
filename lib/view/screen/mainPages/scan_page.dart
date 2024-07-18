@@ -1,103 +1,54 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import 'Constants.dart';
+import '../../../controller/scan_controller.dart';
 
-class ScanPage extends StatefulWidget {
-  const ScanPage({Key? key}) : super(key: key);
+
+class CameraView extends StatefulWidget {
+  const CameraView({super.key});
 
   @override
-  State<ScanPage> createState() => _ScanPageState();
+  State<CameraView> createState() => _CameraViewState();
 }
 
-class _ScanPageState extends State<ScanPage> {
+class _CameraViewState extends State<CameraView> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-              top: 50,
-              left: 20,
-              right: 20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Constants.primaryColor.withOpacity(.15),
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        color: Constants.primaryColor,
-                      ),
-                    ),
+      body: GetBuilder<ScanController>(
+        init: ScanController(),
+        builder: (controller) {
+          return controller.isCameraInitialized.value
+              ? Stack(
+            children: [
+              CameraPreview(controller.cameraController),
+              Positioned(
+                top: (controller.y ?? 0) * 700.0,
+                right: (controller.x ?? 0) * 500.0,
+                child: Container(
+                  width: (controller.z ?? 0) * 100.0 * (context.width ?? 0) / 100.0,
+                  height: (controller.z ?? 0) * 100.0 * (context.height ?? 0) / 100.0,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.green, width: 4.0)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Text("${controller.label}"),
+                        color: Colors.white,
+                      )
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      debugPrint('favorite');
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Constants.primaryColor.withOpacity(.15),
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.share,
-                          color: Constants.primaryColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-          Positioned(
-            top: 100,
-            right: 20,
-            left: 20,
-            child: Container(
-              width: size.width * .8,
-              height: size.height * .8,
-              padding: const EdgeInsets.all(20),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/code-scan.png',
-                      height: 100,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Tap to Scan',
-                      style: TextStyle(
-                        color: Constants.primaryColor.withOpacity(.80),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-            ),
-          ),
-        ],
+              )
+            ],
+          )
+              : Center(child: const Text("Loading preview..."));
+        },
       ),
     );
   }
